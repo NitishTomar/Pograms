@@ -1,0 +1,63 @@
+import queue
+
+
+class node:
+
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+
+class tRee:
+
+    def __init__(self):
+        self.rot = None
+        self.t = None
+        self.p = None
+        self.q = queue.Queue()
+
+    def prin(self , temp):
+        if temp is None:
+            return
+        self.prin(temp.left)
+        print(temp.data)
+        self.prin(temp.right)
+
+
+
+
+    def add(self, val):
+        temp = node(val)
+        if self.rot is None:
+            self.rot = temp
+            self.q.put(self.rot)
+            self.p = self.rot
+
+        else:
+
+            if self.p.left and self.p.right is not None:
+                self.p = self.q.get()
+
+            self.p = self.q.queue[0]
+            if self.p.left is None:
+                self.p.left = temp
+                self.p.left.data = temp.data
+                self.q.put(temp)
+
+            else:
+                self.p.right = temp
+                self.p.right.data = temp.data
+                self.q.put(temp)
+
+
+
+r = tRee()
+n=1
+while n is not 0:
+    val = input("Add Element : ")
+    r.add(val)
+    n = int(input("Continue 0/1 : "))
+
+r.prin(r.rot)
+
