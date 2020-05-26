@@ -1,0 +1,70 @@
+import queue
+
+
+class node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+
+class Tree:
+
+    def __init__(self):
+        self.dicti = dict({})
+        self.q = queue.Queue()
+        self.root = None
+
+    def rightBoundary(self, r):
+        
+        temp = r
+        if temp.left is None and temp.right is None:
+            return
+
+        if temp.right is not None:
+            self.rightBoundary(temp.right)
+        else:
+            if temp.left is not None:
+                self.rightBoundary(temp.left)
+        if temp.data is not self.root.data:
+            print(temp.data)
+
+    def leftBoundary(self, r):
+        if r.left is None and r.right is None:
+            return
+
+        print(r.data)
+        if r.left is not None:
+            self.leftBoundary(r.left)
+        else:
+            if r.right is not None:
+                self.leftBoundary(r.right)
+
+    def leafNode(self, r):
+        if r.left is None and r.right is None:
+            print(r.data)
+            return
+
+        if r.left is not None:
+            self.leafNode(r.left)
+        if r.right is not None:
+            self.leafNode(r.right)
+
+    def printBoundaryNodes(self, r):
+        self.leftBoundary(r)
+        self.leafNode(r)
+        self.rightBoundary(r)
+
+
+tree = Tree()
+tree.root = node(1)
+tree.root.left = node(7)
+tree.root.right = node(5)
+tree.root.left.left = node(2)
+tree.root.left.right = node(6)
+tree.root.left.right.left = node(5)
+tree.root.left.right.right = node(11)
+tree.root.right.right = node(9)
+tree.root.right.right.left = node(4)
+
+tree.printBoundaryNodes(tree.root)

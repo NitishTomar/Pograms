@@ -1,0 +1,56 @@
+import queue
+
+
+class node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+
+class Tree:
+
+    def __init__(self):
+        self.dicti = dict({})
+        self.q = queue.Queue()
+
+    def verticalOrder(self, r, height):
+        temp = r
+        self.q.put([temp, height])
+        self.dicti[0] = temp.data
+
+        while not self.q.empty():
+            x = self.q.get()
+
+            if x[0].left is not None:  # checking node if it has left child or not
+                # putting element into the queue.
+                self.q.put([x[0].left, x[1] - 1])
+                # checking if key is present in the dictionary or not
+                if x[1] - 1 not in self.dicti:
+                    self.dicti[x[1] - 1] = x[0].left.data
+
+            if x[0].right is not None:
+                self.q.put([x[0].right, x[1] + 1])
+                if x[1] + 1 not in self.dicti:
+                    self.dicti[x[1] + 1] = x[0].right.data
+
+        return self.dicti
+
+
+root = node(2)
+root.left = node(7)
+root.right = node(5)
+root.left.left = node(2)
+root.left.right = node(6)
+root.left.right.left = node(5)
+root.left.right.right = node(11)
+root.right.right = node(9)
+root.right.right.left = node(4)
+
+tree = Tree()
+order = tree.verticalOrder(root, 0)
+print(order)
+lt = sorted(order.keys())
+for i in lt:
+    print(order[i])
+

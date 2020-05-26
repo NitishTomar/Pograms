@@ -1,0 +1,25 @@
+l = []
+r,c = input().split(" ")
+for i in range(int(r)):
+    m = []
+    for j in range(int(c)):
+        m.append(int(input()))
+    l.append(m)
+
+for i in range(3):
+    print(l[i])
+
+
+
+
+l = []
+for i in range(3):
+    l.append(input().split(" "))
+
+print(l[1])
+
+
+
+
+
+<pre class="prettyprint"><span style="font-size: large;"><code class="language-py"></code></span></pre>

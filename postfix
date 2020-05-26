@@ -1,0 +1,39 @@
+precedence = dict({"+": 1, "-": 1, "*": 2, "/": 3, "^": 4})
+infix = input()
+infix = infix.lower()
+stack = []
+i = 0
+while i < len(infix):
+    if 97 <= ord(infix[i]) <= 122:
+        print(infix[i], end='')
+    else:
+        if infix[i] == '(':
+            stack.append(infix[i])
+        else:
+            if infix[i] == ')':
+                element = stack.pop()
+                while element != '(':
+                    print(element, end='')
+                    element = stack.pop()
+            else:
+                flag = 0
+                if infix[i] in precedence and len(stack) != 0 and stack[-1] in precedence:
+                    element = stack[-1]
+                    while element != '(' and element != ')' and precedence[element] > precedence[infix[i]]:
+                        print(element, end='')
+                        flag += 1
+                        stack.pop()
+                        if len(stack) != 0:
+                            element = stack[-1]
+                        else:
+                            break
+
+                    stack.append(infix[i])
+                else:
+                    stack.append(infix[i])
+    i += 1
+
+for i in range(len(stack)):
+    element = stack.pop()
+    if element != '(':
+        print(element, end='')

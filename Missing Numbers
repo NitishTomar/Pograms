@@ -1,0 +1,42 @@
+
+alteredLength = input()
+alteredNos = input().split(" ")
+realnosLength = input()
+realNos = input().split(" ")
+
+realDict = dict({})
+dicti = dict({})
+sete = set(realNos)
+
+for i in range(int(realnosLength)):
+    key = realNos[i]
+    if key in realDict:
+        realDict[key] += 1
+    else:
+        realDict[key] = 1
+
+
+for i in range(int(alteredLength)):
+    key = alteredNos[i]
+    if key in dicti:
+        dicti[key] += 1
+    else:
+        dicti[key] = 1
+
+
+
+list = []
+for i in range(len(sete)):
+    key = sete.pop()
+    if key in dicti:
+        if realDict[key] <= dicti[key]:
+            pass
+        else:
+            list.append(int(key))
+    else:
+        list.append(int(key))
+
+
+list.sort()
+for i in range(len(list)):
+    print(list[i], end=' ')

@@ -1,0 +1,44 @@
+dicti = dict({'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9, 'j': 10, 'k': 11, 'l': 12, 'm': 13, 'n': 14, 'o': 15, 'p': 16, 'q': 17, 'r': 18, 's': 19, 't': 20, 'u': 21, 'v': 22, 'w': 23, 'x': 24, 'y': 25, 'z': 26})
+weight = dict({})
+string = input()
+n = int(input())
+w =0
+weigh = []
+ch = ""
+weight[string[0]] = dicti[string[0]]
+for i in range(len(string)-1):
+    if string[i] == string[i + 1]:
+        if w == 0:
+            ch = string[i] + string[i + 1]
+            w = dicti[string[i + 1]] + dicti[string[i]]
+            weight[ch] = w
+            weight[string[i]] = dicti[string[i]]
+        else:
+            w = w + dicti[string[i + 1]]
+            ch = ch + string[i + 1]
+            weight[ch] = w
+
+    else:
+        if len(ch) == 0:
+            weight[string[i]] = dicti[string[i]]
+        else:
+            weight[string[i+1]] = dicti[string[i+1]]
+            w = 0
+        ch = ""
+
+for i in range(n):
+    weigh.append(int(input()))
+
+
+for i in range(n):
+    if weigh[i] in weight.values():
+        print("Yes")
+    else:
+        print("N0")
+
+
+
+
+
+
+

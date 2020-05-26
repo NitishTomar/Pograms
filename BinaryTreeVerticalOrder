@@ -1,0 +1,167 @@
+class node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+
+class Tree:
+
+    def __init__(self):
+        self.dicti = dict({})
+
+    def prit(self, temp):
+        if temp is None:
+            return
+        self.prit(temp.left)
+        print(temp.data)
+        self.prit(temp.right)
+
+    def verticalOrder(self, r, height):
+        temp = r
+        if temp is None:
+            return
+        if temp.left is not None:
+            if height -1 in self.dicti:
+                self.dicti[height - 1].append(temp.left.data)
+            else:
+                self.dicti[height - 1] = []
+                self.dicti[height - 1].append(temp.left.data)
+        self.verticalOrder(temp.left, height - 1)
+
+        if temp.right is not None:
+            if height + 1 in self.dicti:
+                self.dicti[height + 1].append(temp.right.data)
+            else:
+                self.dicti[height + 1] = []
+                self.dicti[height + 1].append(temp.right.data)
+
+        self.verticalOrder(temp.right, height + 1)
+
+        return self.dicti
+
+
+
+
+root = node(2)
+root.left = node(7)
+root.right = node(5)
+root.left.left = node(2)
+root.left.right = node(6)
+root.left.right.left = node(5)
+root.left.right.right = node(11)
+root.right.right = node(9)
+root.right.right.left = node(4)
+
+
+
+
+
+
+tree = Tree()
+tree.prit(root)
+order = tree.verticalOrder(root, 0)
+order[0].append(root.data)
+print(order)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import queue
+
+
+class node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+
+class Tree:
+
+    def __init__(self):
+        self.dicti = dict({})
+        self.q = queue.Queue()
+
+    def prit(self, temp):
+        if temp is None:
+            return
+        self.prit(temp.left)
+        print(temp.data)
+        self.prit(temp.right)
+
+    def verticalOrder(self, r, height):
+        temp = r
+        self.q.put([temp, height])
+        self.dicti[0] = []
+        self.dicti[0].append(temp.data)
+        while not self.q.empty():
+            ele = self.q.get()
+
+            if ele[0].left is not None:
+                self.q.put([ele[0].left, ele[1] - 1])
+                if ele[1] - 1 in self.dicti:
+                    self.dicti[ele[1] - 1].append(ele[0].left.data)
+                else:
+                    self.dicti[ele[1] - 1] = []
+                    self.dicti[ele[1] - 1].append(ele[0].left.data)
+
+            if ele[0].right is not None:
+                self.q.put([ele[0].right, ele[1] + 1])
+                if ele[1] + 1 in self.dicti:
+                    self.dicti[ele[1] + 1].append(ele[0].right.data)
+                else:
+                    self.dicti[ele[1] + 1] = []
+                    self.dicti[ele[1] + 1].append(ele[0].right.data)
+
+        return self.dicti
+
+
+root = node(2)
+root.left = node(7)
+root.right = node(5)
+root.left.left = node(2)
+root.left.right = node(6)
+root.left.right.left = node(5)
+root.left.right.right = node(11)
+root.right.right = node(9)
+root.right.right.left = node(4)
+
+tree = Tree()
+order = tree.verticalOrder(root, 0)
+lt = sorted(order.keys())
+for i in lt:
+    print(order[i])
+
+

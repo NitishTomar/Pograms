@@ -1,3 +1,88 @@
+
+import queue
+
+
+class node:
+
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+
+class tRee:
+
+    def __init__(self):
+        self.rot = None
+        self.t = None
+        self.p = None
+        self.q = queue.Queue()
+        self.leaf = queue.Queue()
+
+    def prin(self , temp):
+        if temp is None:
+            return
+        print(temp.data, end=" ")
+        self.prin(temp.left)
+        self.prin(temp.right)
+
+    def leafNodes(self, temp):
+        self.leaf.put(temp)
+        while not self.leaf.empty():
+            temp1 = self.leaf.get()
+            if temp1.left is not None:
+                self.leaf.put(temp1.left)
+            if temp1.right is not None:
+                self.leaf.put(temp1.right)
+
+            if temp1.left is None and temp1.right is None:
+                print(temp1.data, end=" ")
+
+    def add(self, val):
+        temp = node(val)
+        if self.rot is None:
+            self.rot = temp
+            self.q.put(self.rot)
+            self.p = self.rot
+        else:
+            if self.p.left and self.p.right is not None:
+                self.p = self.q.get()
+
+            self.p = self.q.queue[0]
+            if self.p.left is None:
+                self.p.left = temp
+                self.p.left.data = temp.data
+                self.q.put(temp)
+            else:
+                self.p.right = temp
+                self.p.right.data = temp.data
+                self.q.put(temp)
+
+
+
+r = tRee()
+print("Enter The Elements : ")
+l = list(map(int, input().strip().split(" ")))
+for i in range(len(l)):
+    r.add(l[i])
+
+
+
+
+
+r.prin(r.rot)
+print()
+r.leafNodes(r.rot)
+
+
+
+
+
+
+Recursive Version :
+
+
+
 import queue
 
 
@@ -20,9 +105,22 @@ class tRee:
     def prin(self , temp):
         if temp is None:
             return
+        print(temp.data, end=" ")
         self.prin(temp.left)
-        print(temp.data)
         self.prin(temp.right)
+
+    def leafNodes(self, temp):
+        if temp.left is None and temp.right is None:
+            print(temp.data, end=" ")
+            return
+        if temp.left is not None:
+            self.leafNodes(temp.left)
+
+        if temp.right is not None:
+            self.leafNodes(temp.right)
+
+
+
 
 
 
@@ -53,11 +151,12 @@ class tRee:
 
 
 r = tRee()
-n=1
-while n is not 0:
-    val = input("Add Element : ")
-    r.add(val)
-    n = int(input("Continue 0/1 : "))
+print("Enter The Elements : ")
+l = list(map(int, input().strip().split(" ")))
+for i in range(len(l)):
+    r.add(l[i])
 
 r.prin(r.rot)
+print()
+r.leafNodes(r.rot)
 

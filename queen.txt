@@ -1,0 +1,119 @@
+i, k = input().split()
+i = int(i)
+k = int(k)
+#i = int(input())
+#k = int(input())
+x, y = input().split()
+x = int(x)
+y = int(y)
+#x = int(input())
+#y = int(input())
+list =[]
+count =0
+while k>0:
+    m,n = input().split()
+    ele = [int(m),int(n)]
+    list.append(ele)
+    k -=1
+
+#print(list)
+n=1
+#For HoriZontal Right
+while n<=i:
+    if x+n <= i:
+        if [x+n,y] in list:
+            break
+        else:
+            count+=1
+    else:
+        break
+    n+=1
+
+#For HOriZontal Left
+n=1
+while n <= i:
+    if x-n > 0:
+        if [x-n,y] in list:
+            break
+        else:
+
+            count+=1
+    else:
+        break
+    n += 1
+
+
+n=1
+while n <=i:
+    if y+n <= i:
+        if [x,y+n] in list:
+            break
+        else:
+            count+=1
+    else:
+        break
+    n += 1
+
+
+n=1
+while n <= i:
+    if y-n > 0:
+        if [x,y-n] in list:
+            break
+        else:
+
+            count+=1
+    else:
+        break
+    n += 1
+
+n=1
+while n <= i:
+    if x+n <= i and y+n <= i:
+        if [x+n,y+n] in list:
+            break
+        else:
+
+            count+=1
+    else:
+        break
+    n += 1
+
+n = 1
+while n <= i:
+    if x - n > 0 and y - n > 0:
+        if [x -n, y - n] in list:
+            break
+        else:
+
+            count += 1
+    else:
+        break
+    n += 1
+
+
+n = 1
+while n <= i:
+    if x - n >0 and y + n <= i:
+        if [x -n, y + n] in list:
+            break
+        else:
+
+            count += 1
+    else:
+        break
+    n += 1
+
+
+n = 1
+while n <= i:
+    if x + n <= i and y - n > 0:
+        if [x +n, y - n] in list:
+            break
+        else:
+
+            count += 1
+    else:
+        break
+    n += 1
+print(count)

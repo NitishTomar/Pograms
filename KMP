@@ -1,0 +1,55 @@
+i = 0
+j = 1
+text = input("Enter The Sring To Search On : \n")
+pattern = input("Enter The Subpattern to Search : \n")
+
+l = [0]*len(pattern)
+l[0] = 0
+
+
+def  kmpalgorithm(s,pattern, lps):
+    k = 0
+    m = 0
+    while k < len(s):
+        if s[k] == pattern[m]:
+            k += 1
+            m += 1
+        else:
+            if m != 0:
+                m = lps[m - 1]
+            else:
+                m = 0
+                k += 1
+
+        if m == len(pattern) - 1:
+            m = 0
+            print("Pattern Found At Index : ")
+            print(k + 1 - len(pattern))
+
+
+
+
+def lpsarray():
+    global pattern, i, j
+    while j < len(pattern):
+        if pattern[i] == pattern[j]:
+
+            i += 1
+            l[j] = i
+            j += 1
+
+        else:
+            if i != 0:
+                i = l[i-1]
+
+            else:
+                l[j] = 0
+                j += 1
+
+
+lpsarray()
+kmpalgorithm(text, pattern, l)
+
+
+
+

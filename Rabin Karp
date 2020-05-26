@@ -1,0 +1,61 @@
+
+newDict = dict({'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5})
+
+
+def hashFunction(string, length):
+    sum1 = 0
+    j=0
+    while j is not length:
+        sum1 = sum1 + newDict[string[j]]*pow(26, j)
+        j = j+1
+
+    return sum1
+
+
+S1 = input("Enter String To Perform Search On : \n")
+S2 = input("Enter Substring To Search : \n")
+
+
+s2Hashcode = hashFunction(S2, len(S2))
+s1HashCode = hashFunction(S1, len(S2))
+
+
+def RabinKarpAlgo(string, hashcode, hashcode1):
+    i = len(S2)
+    powwer = i-1
+    j=0
+    while i != len(string) + 1:
+        if hashcode == hashcode1:
+            break
+
+        else:
+            if i is not len(string):
+                hashcode = int(((hashcode - newDict[S1[j]] * pow(26, 0)) / 26) + newDict[S1[i]]*pow(26, powwer))
+                j = j + 1
+
+            else:
+                print("Substring Not Found")
+
+        if hashcode1 == hashcode:
+            print("Substring Found")
+
+        i = i+1
+
+
+
+RabinKarpAlgo(S1, s1HashCode, s2Hashcode)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
